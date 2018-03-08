@@ -19,7 +19,7 @@ prop.table(table(tv$Form[tv$Rel_Circle %in% c("Fri", "Fam", "Rom")]))
 #       ty        vy 
 #0.8888889 0.1111111 
 
-prop.table(table(tv$Form[tv.rus$Rel_Circle %in% c("Str", "Acq", "Work")&tv.rus$H_Age %in% c("Middle", "Old")]))
+prop.table(table(tv$Form[tv$Rel_Circle %in% c("Str", "Acq", "Work")&tv$H_Age %in% c("Middle", "Old")]))
 
 #       ty        vy 
 #0.2136752 0.7863248 
@@ -30,7 +30,7 @@ prop.table(table(tv$Form[tv.rus$Rel_Circle %in% c("Str", "Acq", "Work")&tv.rus$H
 
 pred.cit <- predict(tv.cit)
 
-table(pred.cit, tv$Form[complete.cases(tv)])
+table(pred.cit, tv$Form)
 
 #pred.ctree  ty  vy
 #        ty  75  15
@@ -50,9 +50,9 @@ somers2(prob.cit, as.numeric(tv$Form) - 1)
 #Section 3.6. Grow a conditional random forest
 
 set.seed(2450)#if you want to reproduce the results shown in the chapter
-#tv.crf <- cforest(Form ~., data = tv, controls = cforest_unbiased(mtry = 4, ntree = 1000))
-tv.crf1 <- cforest(Form ~., data = tv, controls = cforest_control(mtry = 4, ntree = 1000))
+tv.crf <- cforest(Form ~., data = tv, controls = cforest_unbiased(mtry = 4, ntree = 1000))
 
+###checking the parameters
 accvalues_max_teststat_replace <- numeric()
 for (i in 1:16){
   set.seed(51)
